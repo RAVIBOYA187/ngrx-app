@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+div {
+    width: 95vw;
+    height: 8vh;
+    background-color: #242323;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px 40px;
+    padding-left: 60vw;
+    border-radius: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-size: larger;
+}
+
+a:hover {
+    color: rgb(238, 120, 47);
+}
