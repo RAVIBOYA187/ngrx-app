@@ -1,1 +1,24 @@
-<p>login works!</p>
+<h1>NgRx Forms</h1>
+
+@if (formDetails$ | async ; as form) {
+
+
+<label for="">Name</label><br>
+<input type="text" [value]="form.name" (input)="handleInputChange('name', $event.target.value)">
+<br><br>
+
+<label for="">email</label><br>
+<input type="email" [value]="form.email" (input)="handleInputChange('email', $event.target.value)">
+<br><br>
+
+<button (click)="handleSubmit()">submit</button>
+<button (click)="handleReset()">reset</button>
+
+
+<h1>form preview </h1>
+<p>{{form | json}}</p>
+
+}
+
+<h1>form preview </h1>
+<p>{{formDetails$ | async | json}}</p>

@@ -18,6 +18,10 @@ export const routes: Routes = [
         loadComponent: () => import("./login/login").then(l => l.Login)
     },
     {
+        path: "signup",
+        loadComponent: () => import("./signup/signup").then(s => s.Signup)
+    },
+    {
         path: "cart",
         loadComponent: () => import("./cart/cart").then(c => c.Cart)
     }
