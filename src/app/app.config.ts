@@ -10,6 +10,9 @@ import { formReducer } from './login/login.reducers';
 import { formSelector } from './login/login.selectors';
 import { signupSelector } from './signup/signup.selectors';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { ProductsEffects } from './products/products.effects';
+import { productSelector } from './products/products.selectors';
+import { cartSelector } from './cart/cart.selectors';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,9 +22,11 @@ export const appConfig: ApplicationConfig = {
     provideStore({ count: counterReducer }),
     provideState(formSelector),
     provideState(signupSelector),
-    provideEffects(),
-    provideStoreDevtools({
-      maxAge:18
-    })
+    provideState(productSelector),
+    provideState(cartSelector),
+    provideEffects([ProductsEffects]),
+    // provideStoreDevtools({
+    //   maxAge: 18
+    // })
   ],
 };

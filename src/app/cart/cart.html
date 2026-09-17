@@ -1,1 +1,190 @@
-<p>cart works!</p>
+<div class="cart-page">
+
+    <div class="cart-header">
+        <h1>Shopping Cart</h1>
+
+        @if (cartList$ | async; as items) {
+        <p class="cart-count">
+            {{ items.length }} item{{ items.length !== 1 ? 's' : '' }}
+        </p>
+        }
+    </div>
+
+
+    @if (cartList$ | async; as items) {
+
+    @if (items.length === 0) {
+
+    <div class="empty-cart">
+
+        <div class="empty-icon">🛒</div>
+
+        <h2>Your cart is empty</h2>
+
+        <p>
+            Looks like you haven't added anything to your cart yet.
+        </p>
+
+        <button class="shop-button" routerLink="/products">
+            Continue Shopping
+        </button>
+
+    </div>
+
+    }
+
+
+    @if (items.length > 0) {
+
+    <div class="cart-content">
+
+        <!-- Products -->
+        <div class="cart-items">
+
+            @for (item of items; track item.id) {
+
+            <div class="cart-item">
+
+                <!-- Product Image -->
+                <div class="product-image">
+
+                    <img [src]="item.image" [alt]="item.title">
+
+                </div>
+
+
+                <!-- Product Details -->
+                <div class="product-details">
+
+                    <h3>
+                        {{ item.title }}
+                    </h3>
+
+                    <p class="price">
+                        {{ item.price | currency }}
+                    </p>
+
+
+                    <!-- Quantity -->
+                    <div class="quantity-section">
+
+                        <span class="quantity-label">
+                            Quantity
+                        </span>
+
+                        <div class="quantity-control">
+
+                            <button class="quantity-btn" (click)="decrease(item.id)">
+                                −
+                            </button>
+
+                            <span class="quantity">
+                                {{ item.quantity }}
+                            </span>
+
+                            <button class="quantity-btn" (click)="increase(item.id)">
+                                +
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Remove -->
+                    <button class="remove-btn" (click)="remove(item)">
+                        Remove
+                    </button>
+
+                </div>
+
+
+                <!-- Item Total -->
+                <div class="item-total">
+
+                    {{ item.price * item.quantity | currency}}
+
+                </div>
+
+            </div>
+
+            }
+
+        </div>
+
+
+        <!-- Cart Summary -->
+        <div class="cart-summary">
+
+            <h2>Order Summary</h2>
+
+            <div class="summary-row">
+
+
+
+                <span>Total Items</span>
+
+                <span>{{ items.length}}</span>
+
+            </div>
+            <div class="summary-row">
+
+
+
+                <span>Total Units</span>
+
+                <span>{{ cartCount$ | async }}</span>
+
+            </div>
+
+            <div class="summary-row">
+
+                <span>Subtotal</span>
+
+                <span>
+                    {{ cartTotal$ | async | currency}}
+                </span>
+
+            </div>
+
+            <div class="summary-row">
+
+                <!-- <span>Shipping</span>
+
+                    <span class="free">
+                        FREE
+                    </span> -->
+
+            </div>
+
+            <hr>
+
+            <div class="summary-total">
+
+                <span>Total</span>
+
+                <span>
+                    {{ cartTotal$ | async | currency}}
+                </span>
+
+            </div>
+
+
+            <!-- <button class="checkout-btn">
+                Proceed to Checkout
+            </button> -->
+
+
+            <button class="clear-btn" (click)="clearCart()">
+                Clear Cart
+            </button>
+
+        </div>
+
+    </div>
+
+    }
+
+    }
+
+</div>

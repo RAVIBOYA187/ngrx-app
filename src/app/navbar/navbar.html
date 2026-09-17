@@ -1,11 +1,16 @@
-<div>
-    <a routerLink="counter">counter</a>
+<nav class="navbar">
+    <div class="logo">
+        <a routerLink="/">ShopApp</a>
+    </div>
 
-    <a routerLink="products">products</a>
-    <a routerLink="login">login</a>
-    <a routerLink="signup">signup</a>
-    <a routerLink="cart">cart</a>
+    <div class="nav-links">
+        <a routerLink="/counter" routerLinkActive="active">Counter</a>
+        <a routerLink="/products" routerLinkActive="active">Products</a>
+        <a routerLink="/login" routerLinkActive="active">Login</a>
+        <a routerLink="/signup" routerLinkActive="active">Sign Up</a>
 
-
-
-</div>
+        <a routerLink="/cart" routerLinkActive="active" class="cart-link">
+            🛒 Cart
+        </a>
+    </div>
+</nav>

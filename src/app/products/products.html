@@ -1,1 +1,77 @@
-<p>products works!</p>
+<!-- <p>products works!</p>
+{{play()}}
+
+<h1>{{num.count}}</h1> -->
+
+
+<!-- <h1>Productsss</h1> -->
+<!-- @if (error$ | async ; as err) {
+<h1>{{err}}</h1>
+
+}
+@if (products$ | async ; as products) {
+@for (item of products; track item.id) {
+<img [src]="item.image" [alt]="item.id">
+
+<p>{{item.title}}</p>
+<p>{{item.price}}</p>
+}
+} -->
+
+<!-- <h1>Productsss</h1>
+
+<p>Loading observable exists: {{ loading$ | async }}</p>
+<p>Error observable: {{ error$ | async }}</p>
+<p>Products observable: {{ products$ | async | json }}</p> -->
+
+
+
+
+
+
+
+
+
+
+
+
+@if (error$ | async; as err) {
+<div class="error">
+    <h2>{{ err }}</h2>
+</div>
+}
+
+@if (products$ | async; as products) {
+
+<div class="products-container">
+
+    @for (item of products; track item.id) {
+
+    <div class="product-card">
+
+        <div class="image-container">
+            <img [src]="item.image" [alt]="item.title">
+        </div>
+
+        <div class="product-info">
+
+            <p class="product-title">
+                {{ item.title | slice:0:20}}
+            </p>
+
+            <p class="product-price">
+                {{ item.price | currency }}
+            </p>
+            <button (click)="addToCart(item)">
+                Add to Cart
+            </button>
+
+        </div>
+
+    </div>
+
+    }
+
+</div>
+
+}

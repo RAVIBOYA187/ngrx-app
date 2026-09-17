@@ -2,27 +2,110 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow: hidden;
 }
 
-div {
-    width: 95vw;
-    height: 8vh;
-    background-color: #242323;
+.navbar {
+    width: calc(100% - 40px);
+    height: 70px;
+
+    margin: 15px 20px;
+    padding: 0 30px;
+
+    background: #242323;
+    border-radius: 12px;
+
     display: flex;
-    justify-content: space-around;
     align-items: center;
-    margin: 10px 40px;
-    padding-left: 60vw;
+    justify-content: space-between;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+    position: sticky;
+    top: 5px;
+    z-index: 100;
+}
+
+/* Logo */
+
+.logo a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Navigation */
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-links a {
+    position: relative;
+
+    padding: 10px 16px;
+
+    color: #fff;
+    text-decoration: none;
+
+    font-size: 22px;
+    font-weight: 500;
+
+    border-radius: 8px;
+
+    transition:
+        color 0.3s ease,
+        background-color 0.3s ease;
+}
+
+/* Hover */
+
+.nav-links a:hover {
+    color: #f0782f;
+    background-color: #333;
+}
+
+/* Active route */
+
+.nav-links a.active {
+    color: #f0782f;
+}
+
+/* Active underline */
+
+.nav-links a.active::after {
+    content: "";
+
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 4px;
+
+    height: 2px;
+
+    background: #f0782f;
     border-radius: 10px;
 }
 
-a {
-    text-decoration: none;
-    color: white;
-    font-size: larger;
+/* Cart */
+
+.cart-link {
+    margin-left: 8px;
+    background: #f0782f;
 }
 
-a:hover {
-    color: rgb(238, 120, 47);
+.nav-links a.cart-link {
+    color: white;
+}
+
+.nav-links a.cart-link:hover {
+    background: #d96320;
+    color: white;
+}
+
+.nav-links a.cart-link.active {
+    color: white;
 }
