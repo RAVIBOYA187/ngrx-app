@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { cartSelector, selectCartCount, selectCartTotal } from './cart.selectors';
 import { AsyncPipe, CurrencyPipe, DecimalPipe } from '@angular/common';
 import { CartActions } from './cart.actions';
-import { cartItem } from './cart.reducer';
+import { cartItem, cartState } from './cart.reducer';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
 export class Cart {
 
 
-  private store = inject(Store)
+  private store = inject(Store<cartState>)
 
   cartList$ = this.store.select(cartSelector.selectCartList);
   cartCount$ = this.store.select(selectCartCount);

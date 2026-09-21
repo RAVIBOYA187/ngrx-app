@@ -25,8 +25,8 @@ export const appConfig: ApplicationConfig = {
     provideState(productSelector),
     provideState(cartSelector),
     provideEffects([ProductsEffects]),
-    // provideStoreDevtools({
-    //   maxAge: 18
-    // })
+    provideStoreDevtools({
+      maxAge: 45
+    })
   ],
 };

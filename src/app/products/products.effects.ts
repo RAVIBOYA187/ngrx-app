@@ -18,12 +18,26 @@ export class ProductsEffects {
           switchMap(() =>
             this.productsService.getProducts().
               pipe(
+                // map((products) => {
+                //   // console.log("mappppp")
+                //   return (
+                //     ProductsActions.productsLoadingSuccess({ products }))
+                // }
+                // ),
+
+                // removing rating key from product object
                 map((products) => {
-                  // console.log("mappppp")
-                  return (
-                    ProductsActions.productsLoadingSuccess({ products }))
+                  let filterredProducts = products.
+                    map(
+                      ({ id, title, price, description, category, image }) =>
+                        ({ id, title, price, description, category, image })
+                    )
+
+                  return ProductsActions.productsLoadingSuccess({ products: filterredProducts })
                 }
                 ),
+
+
                 catchError((error) => {
                   // console.log("errr");
                   return (
@@ -31,9 +45,7 @@ export class ProductsEffects {
                       ProductsActions.productsLoadingFailure({ errorMsg: error.message || "failed to load products " })
                     )
                   )
-
                 }
-
                 )
               )
           )

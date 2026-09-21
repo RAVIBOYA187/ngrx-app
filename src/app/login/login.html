@@ -3,11 +3,11 @@
 @if (formDetails$ | async ; as form) {
 
 
-<label for="">Name</label><br>
+<label>Name</label><br>
 <input type="text" [value]="form.name" (input)="handleInputChange('name', $event.target.value)">
 <br><br>
 
-<label for="">email</label><br>
+<label>email</label><br>
 <input type="email" [value]="form.email" (input)="handleInputChange('email', $event.target.value)">
 <br><br>
 
@@ -20,5 +20,5 @@
 
 }
 
-<h1>form preview </h1>
+<h1>formDetails preview </h1>
 <p>{{formDetails$ | async | json}}</p>

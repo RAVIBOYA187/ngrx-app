@@ -20,7 +20,7 @@ export interface ProductsState {
 
 export const initialState: ProductsState = {
     productsList: [],
-    loading: true,
+    loading: false,
     error: null
 }
 
@@ -37,7 +37,7 @@ export const productReducer = createReducer(
         }
     ),
     on(ProductsActions.productsLoadingSuccess, (state, { products }) => {
-        // console.log(products);
+        // console.log("productsLoadingSuccess : ", products);
         return {
             ...state,
             productsList: products,
