@@ -1,87 +1,252 @@
-@if (loading$ | async) {
+<div id="products-page" class="products-page">
 
-<div class="loading">
-    <div class="spinner"></div>
-    <p>Loading products...</p>
-</div>
+    <div id="filter-section" class="filter-section">
 
-}
-@else if (error$ | async; as err) {
+        <div class="filter-group category-filter">
+            <label for="category-select">Category</label>
 
-<div class="error">
-    <h2>Something went wrong</h2>
-    <p>{{ err }}</p>
+            <select id="category-select" #category (change)="changeCategory(category.value)">
+                <option value="all">
+                    All Categories
+                </option>
 
-    <button (click)="ngOnInit()">
-        Retry
-    </button>
-</div>
+                <option value="electronics">
+                    Electronics
+                </option>
 
-}
-@else if (products$ | async; as products) {
+                <option value="jewelery">
+                    Jewelry
+                </option>
 
-@if (products.length > 0) {
+                <option value="men's clothing">
+                    Men's Clothing
+                </option>
 
-<div class="products-container">
-
-    @for (item of products; track item.id) {
-
-    @if (
-    $index >= (currentPage() - 1) * itemsPerPage &&
-    $index < currentPage() * itemsPerPage ) { <div class="product-card">
-
-        <div class="image-container">
-            <img [src]="item.image" [alt]="item.title">
+                <option value="women's clothing">
+                    Women's Clothing
+                </option>
+            </select>
         </div>
 
-        <div class="product-info">
 
-            <p class="product-title">
-                {{ item.title | slice:0:20 }}
-            </p>
+        <div id="price-filter" class="price-filter">
 
-            <p class="product-price">
-                {{ item.price | currency }}
-            </p>
+            <div class="filter-group">
+                <label for="min-price">Min Price</label>
 
-            <button (click)="addToCart(item)">
-                Add to Cart
+                <input id="min-price" type="number" #minPrice value="0" min="0" placeholder="Min Price">
+            </div>
+
+
+            <div class="filter-group">
+                <label for="max-price">Max Price</label>
+
+                <input id="max-price" type="number" #maxPrice value="1000" min="0" placeholder="Max Price">
+            </div>
+
+
+            <button id="apply-price-button" class="apply-price-button" (click)="
+                    changePriceRange(
+                        +minPrice.value,
+                        +maxPrice.value
+                    )
+                ">
+                Apply Price Range
             </button>
 
         </div>
 
+        <div class="filter-group search-filter">
+
+            <label for="product-search">
+                Search Products
+            </label>
+
+            <input id="product-search" type="text" #search placeholder="Search products..."
+                (input)="searchProducts(search.value)">
+
+        </div>
+
+
+        <div class="filter-group">
+
+            <label for="sort-select">
+                Sort By Price & Name
+            </label>
+
+            <select id="sort-select" #sort (change)="changeSort(sort.value)">
+                <option value="default">
+                    Default
+                </option>
+
+                <option value="low-high">
+                    Price: Low → High
+                </option>
+
+                <option value="high-low">
+                    Price: High → Low
+                </option>
+
+                <option value="name-az">
+                    Name: A → Z
+                </option>
+
+                <option value="name-za">
+                    Name: Z → A
+                </option>
+
+
+            </select>
+
+        </div>
+
+
+        <div class="filter-group page-size-filter">
+
+            <label for="page-size">
+                Items per page
+            </label>
+
+            <select id="page-size" #pageSize (change)="changePageSize(pageSize.value)">
+                <option value="4">
+                    4
+                </option>
+
+                <option value="8">
+                    8
+                </option>
+
+                <option value="12">
+                    12
+                </option>
+
+                <option value="16">
+                    16
+                </option>
+            </select>
+
+        </div>
+
+
+
+    </div>
+
+
+    @if (loading$ | async) {
+
+    <div id="loading-state" class="loading-state">
+
+        <div class="loading-spinner"></div>
+
+        <p>Loading products...</p>
+
+    </div>
+
+    }
+
+
+    @if (error$ | async; as error) {
+
+    <div id="error-state" class="error-state">
+
+        <h2>Something went wrong</h2>
+
+        <p>{{ error }}</p>
+
+    </div>
+
+    }
+
+
+
+
+
+
+
+    @if (paginatedProducts$ | async; as products) {
+
+    @if (products.length > 0) {
+
+    <div id="products-grid" class="products-grid">
+
+        @for (item of products; track item.id) {
+
+        <article class="product-card" [id]="'product-' + item.id">
+
+            <div class="product-image-container">
+
+                <img class="product-image" [src]="item.image" [alt]="item.title">
+
+            </div>
+
+
+            <div class="product-details">
+
+                <h3 class="product-title">
+                    {{ item.title | slice:0:30 }}
+                </h3>
+
+                <p class="product-price">
+                    {{ item.price | currency }}
+                </p>
+
+                <p class="product-category">
+                    {{ item.category }}
+                </p>
+
+                <button class="add-cart-button" (click)="addToCart(item)">
+                    Add To Cart
+                </button>
+
+            </div>
+
+        </article>
+
+        }
+
+    </div>
+
+    }
+    @else {
+
+    <div id="no-products" class="no-products">
+
+        <h2>No products found</h2>
+
+        <p>
+            Try changing your category or price range.
+        </p>
+
+    </div>
+
+    }
+
+    }
+
+
+    <div id="pagination" class="pagination">
+
+        <button id="previous-button" class="pagination-button" [disabled]="previousToggle()" (click)="previous()">
+            Previous
+        </button>
+
+
+        <div id="page-info" class="page-info">
+            Page
+            <span class="current-page">
+                {{ currentPage() }}
+            </span>
+            of
+            <span class="total-pages">
+                {{ totalPages() }}
+            </span>
+        </div>
+
+
+        <button id="next-button" class="pagination-button" [disabled]="nextToggle()" (click)="next()">
+            Next
+        </button>
+
+    </div>
+
 </div>
-
-}
-
-}
-
-</div>
-
-
-<!-- Pagination only when products exist -->
-
-<div class="pagination">
-
-    <button [disabled]="previousToggle()" (click)="previous()">
-        Previous
-    </button>
-
-    <p>{{ currentPage() }}</p>
-
-    <button [disabled]="nextToggle()" (click)="next()">
-        Next
-    </button>
-
-</div>
-
-}
-@else {
-
-<div class="no-products">
-    <h2>No products found</h2>
-</div>
-
-}
-
-}
