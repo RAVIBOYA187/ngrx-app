@@ -20,7 +20,7 @@ export const signupReducer = createReducer(
 
     on(signupSubmitAction,
         (state, obj) => {
-            console.log("signupReducer : ", { ...state, ...obj });
+            // console.log("signupReducer : ", { ...state, ...obj });
             return { ...state, ...obj }
         }
     )

@@ -8,6 +8,7 @@ export class ProductService {
 
     productsURL = "https://fakestoreapi.com/products";
 
+    // productsURL = "https://dummyjson.com/products"
     getProducts() {
         return this.http.get<any[]>(this.productsURL)
     }

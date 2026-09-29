@@ -1,0 +1,84 @@
+<div class="register-container">
+    <div class="register-card">
+
+        <h2>Create Account</h2>
+        <p>Register to get started</p>
+
+        <form [formGroup]="signupData" (ngSubmit)="handleSubmit()">
+
+            <!-- Name -->
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input id="name" type="text" formControlName="name" placeholder="Enter your full name" />
+
+                @if (name?.touched && name?.hasError('required')) {
+                <small class="error">Name is required</small>
+                }
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" type="email" formControlName="email" placeholder="Enter your email" />
+
+                @if (email?.touched && email?.hasError('required')) {
+                <small class="error">Email is required</small>
+                }
+
+                @if (email?.touched && email?.hasError('email')) {
+                <small class="error">Enter a valid email</small>
+                }
+            </div>
+
+            <!-- Mobile -->
+            <div class="form-group">
+                <label for="mobile">Mobile</label>
+                <input id="mobile" type="tel" formControlName="mobile" placeholder="Enter 10-digit mobile number"
+                    maxlength="10" />
+
+                @if (mobile?.touched && mobile?.hasError('required')) {
+                <small class="error">Mobile number is required</small>
+                }
+
+                @if (mobile?.touched && mobile?.hasError('pattern')) {
+                <small class="error">Enter a valid 10-digit number</small>
+                }
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" type="password" formControlName="password" placeholder="Enter your password" />
+
+                @if (password?.touched && password?.hasError('required')) {
+                <small class="error">Password is required</small>
+                }
+
+                @if (password?.touched && password?.hasError('minlength')) {
+                <small class="error">
+                    Password must be at least 4 characters
+                </small>
+                }
+
+                @if (password?.touched && password?.hasError('maxlength')) {
+                <small class="error">
+                    Password cannot exceed 20 characters
+                </small>
+                }
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <button type="submit">
+                    Register
+                </button>
+
+                <button type="button" (click)="handleReset()">
+                    Reset
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>

@@ -13,10 +13,12 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { ProductsEffects } from './products/products.effects';
 import { productSelector } from './products/products.selectors';
 import { cartSelector } from './cart/cart.selectors';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
+    provideHttpClient(),
     provideRouter(routes),
     provideClientHydration(),
     provideStore({ count: counterReducer }),

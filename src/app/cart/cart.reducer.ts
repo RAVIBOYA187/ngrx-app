@@ -30,6 +30,7 @@ export const cartReducer = createReducer(
     on(CartActions.addToCart, (state, { item }) => {
 
         // console.log("reducer...... addtocart");
+        // alert(item.title.split(" ").slice(0, 3).join(" ").toUpperCase() + " added to cart")
         let existingProduct = state.cartList.find(product => product.id === item.id)
         if (existingProduct) {
             return {

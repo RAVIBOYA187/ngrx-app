@@ -1,0 +1,62 @@
+<div class="login-container">
+
+    <div class="login-card">
+
+        <h2>Welcome Back</h2>
+        <p>Login to your account</p>
+
+        <form [formGroup]="loginForm" (ngSubmit)="handleLogin()">
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">username</label>
+
+                <input id="email" type="email" formControlName="username" placeholder="Enter your email" />
+
+                <!-- @if (username?.touched && username?.hasError('required')) {
+                <small class="error">
+                    username is required
+                </small> -->
+                <!-- } -->
+
+
+
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">Password</label>
+
+                <input id="password" type="password" formControlName="password" placeholder="Enter your password" />
+
+                @if (password?.touched && password?.hasError('required')) {
+                <small class="error">
+                    Password is required
+                </small>
+                }
+
+                @if (password?.touched && password?.hasError('minlength')) {
+                <small class="error">
+                    Password must be at least 4 characters
+                </small>
+                }
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+
+                <button type="submit" class="login-btn">
+                    Login
+                </button>
+
+                <button type="button" class="reset-btn" (click)="handleReset()">
+                    Reset
+                </button>
+                <!-- <h1>{{data | async }}</h1> -->
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

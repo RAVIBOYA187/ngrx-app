@@ -8,20 +8,23 @@ import { ProductsActions } from "./products.actions";
 import { productSelector } from "./products.selectors";
 import { CartActions } from "../cart/cart.actions";
 import { Product } from "./products.reducer";
+import { cartState } from "../cart/cart.reducer";
 
 @Component({
   imports: [AsyncPipe, CurrencyPipe, SlicePipe],
   selector: 'app-products',
   styleUrl: './products.css',
   templateUrl: './products.html',
+  // templateUrl:"./cart.html"
 })
 export class Products implements OnInit {
 
   private store = inject(Store);
 
   products$ = this.store.select(
-    productSelector.selectProductsList
+    productSelector.selectProductsList,
   );
+
 
   error$ = this.store.select(
     productSelector.selectError
@@ -54,26 +57,31 @@ export class Products implements OnInit {
 
   private minPriceSubject = new BehaviorSubject<number>(0);
 
-  minPrice$ = this.minPriceSubject.asObservable();
+  //asObservable to =>  distinctUntilChanged
+  minPrice$ = this.minPriceSubject.asObservable().pipe(
+    distinctUntilChanged()
+  );
 
   private maxPriceSubject = new BehaviorSubject<number>(1000);
 
-  maxPrice$ = this.maxPriceSubject.asObservable();
+  maxPrice$ = this.maxPriceSubject.asObservable().pipe(
+    distinctUntilChanged()
+  );
 
   private searchSubject = new BehaviorSubject<string>('');
 
-  search$ = this.searchSubject.pipe(
+  search$ = this.searchSubject.asObservable().pipe(
     debounceTime(1000),
     distinctUntilChanged()
   );
 
   private sortSubject = new BehaviorSubject<string>("default")
 
-  sort$ = this.sortSubject.pipe(distinctUntilChanged())
+  sort$ = this.sortSubject.asObservable().pipe(distinctUntilChanged())
 
   private pageSizeSubject = new BehaviorSubject<number>(4);
 
-  pageSize$ = this.pageSizeSubject.pipe(distinctUntilChanged())
+  pageSize$ = this.pageSizeSubject.asObservable().pipe(distinctUntilChanged())
 
 
   filteredProducts$ = combineLatest([

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { Store } from '@ngrx/store';
 import { signupDataState } from './signup.reducers';
@@ -25,6 +25,8 @@ export class Signup {
     mobile: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]),
     password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(20)])
   })
+
+  sendFormDetails = output<{ name: string, email: string, mobile: string, password: string }>()
 
   constructor() {
     this.data$ = this.store.select(signupSelector.selectSignupState)
@@ -64,7 +66,9 @@ export class Signup {
       password: temp.password!
     }))
 
-    alert(this.signupData.get("name")?.value + " your details submitted sucessfully....")
+    this.sendFormDetails.emit({ name: temp.name!, email: temp.email!, mobile: temp.mobile!, password: temp.password! })
+
+    // alert(this.signupData.get("name")?.value + " your details submitted sucessfully....")
 
   }
 

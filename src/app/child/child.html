@@ -1,0 +1,9 @@
+<p>child works!</p>
+
+<h1> name : {{name() ?? "child does not have name value"}}</h1>
+<h1> p2name : {{p2name() ?? "child does not have p2name value"}}</h1>
+
+
+<button (click)="inc()" [disabled]="p2name()">increase</button>
+
+<button (click)="dec()" [disabled]="name()">decrease</button>
