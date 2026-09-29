@@ -9,9 +9,10 @@ import { productSelector } from "./products.selectors";
 import { CartActions } from "../cart/cart.actions";
 import { Product } from "./products.reducer";
 import { cartState } from "../cart/cart.reducer";
+import { RouterLink, RouterOutlet } from "@angular/router";
 
 @Component({
-  imports: [AsyncPipe, CurrencyPipe, SlicePipe],
+  imports: [AsyncPipe, CurrencyPipe, SlicePipe, RouterLink],
   selector: 'app-products',
   styleUrl: './products.css',
   templateUrl: './products.html',

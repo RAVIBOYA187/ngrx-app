@@ -21,19 +21,32 @@ export class ProductsEffects {
                 // map((products) => {
                 //   // console.log("mappppp")
                 //   return (
-                //     ProductsActions.productsLoadingSuccess({ products }))
+                //     ProductsActions.productsLoadingSuccess({ products: products }))
                 // }
                 // ),
 
                 // removing rating key from product object
                 map((products) => {
-                  let filterredProducts = products.
+                  console.log(products);
+                  // console.log(products.data);
+                  let filteredProducts = products.
                     map(
-                      ({ id, title, price, description, category, image }) =>
-                        ({ id, title, price, description, category, image })
-                    )
+                      ({ id, title, price, description, category, images }) =>
+                      ({
+                        id,
+                        title,
+                        price,
+                        description,
+                        category: category.name,
+                        image: images[0]
+                      })
+                    );
 
-                  return ProductsActions.productsLoadingSuccess({ products: filterredProducts })
+                  filteredProducts = filteredProducts.filter((p) => p.id <= 51)
+
+                  console.log(filteredProducts);
+
+                  return ProductsActions.productsLoadingSuccess({ products: filteredProducts })
                 }
                 ),
 

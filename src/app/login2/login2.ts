@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -9,6 +9,8 @@ import { UserService } from '../services/user-service';
 import { map, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { time } from 'console';
+import { routes } from '../app.routes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login2',
@@ -16,18 +18,19 @@ import { time } from 'console';
   templateUrl: './login2.html',
   styleUrl: './login2.css'
 })
-export class Login2 implements OnInit {
+export class Login2 implements OnInit, OnDestroy {
 
   private userService = inject(UserService)
+  private router = inject(Router)
 
 
   loginForm = new FormGroup({
 
-    username: new FormControl('', [
-      // Validators.required,
+    username: new FormControl('ravi@gmail.com', [
+      Validators.required,
     ]),
 
-    password: new FormControl('', [
+    password: new FormControl('ravi', [
       Validators.required,
       Validators.minLength(4)
     ])
@@ -48,9 +51,9 @@ export class Login2 implements OnInit {
         return u
       }),
       map((d) => {
-        console.log(d);
-        console.log(d.users[10].hair.color)
-        console.log(d.limit);
+        // console.log(d);
+        // console.log(d.users[10].hair.color)
+        // console.log(d.limit);
         return d
       })
     ).subscribe(
@@ -104,10 +107,26 @@ export class Login2 implements OnInit {
     // "emilyspass"
     // alert('Login successful');
 
+
+    // let isLoggedIn = localStorage.getItem("isLoggedIn")
+    if (loginData.username === "ravi@gmail.com" && loginData.password === "ravi") {
+
+      let isLoggedIn = true;
+      localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn))
+      console.log("logggeeddd...");
+
+      this.router.navigate(['/products'])
+    }
+
   }
 
   handleReset() {
     this.loginForm.reset();
+  }
+
+
+  ngOnDestroy(): void {
+    // localStorage.removeItem("isLoggedIn")
   }
 
 }

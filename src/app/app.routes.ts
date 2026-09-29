@@ -1,29 +1,51 @@
 import { Routes } from '@angular/router';
+import path from 'path';
+import { ProductDetails } from './products/product-details/product-details';
+import { authGuard } from './auth-guard';
 
 export const routes: Routes = [
     {
         path: "",
-        redirectTo: "products",
+        redirectTo: "login2",
         pathMatch: "full"
     },
     {
         path: "products",
-        loadComponent: () => import("./products/products").then(p => p.Products)
+        loadComponent: () => import("./products/products").then(p => p.Products),
+        // children: [
+        //     {
+        //         path: ":id",
+        //         // component: ProductDetails
+        //         loadComponent: () => import("./products/product-details/product-details").then(pd => pd.ProductDetails)
+        //     }
+        // ]
+        canActivate: [authGuard]
     }, {
+
+        path: "products/:id",
+        loadComponent: () => import("./products/product-details/product-details").then(pd => pd.ProductDetails)
+    },
+
+    {
         path: "counter",
-        loadComponent: () => import("./counter/counter").then(c => c.Counter)
+        loadComponent: () => import("./counter/counter").then(c => c.Counter),
+        canActivate: [authGuard]
+
     },
     {
         path: "login",
-        loadComponent: () => import("./login/login").then(l => l.Login)
+        loadComponent: () => import("./login/login").then(l => l.Login),
+        // canActivate: [authGuard]
     },
     {
         path: "signup",
-        loadComponent: () => import("./signup/signup").then(s => s.Signup)
+        loadComponent: () => import("./signup/signup").then(s => s.Signup),
+        // canActivate: [authGuard]
     },
     {
         path: "cart",
-        loadComponent: () => import("./cart/cart").then(c => c.Cart)
+        loadComponent: () => import("./cart/cart").then(c => c.Cart),
+        canActivate: [authGuard]
     },
     {
         path: "parent",
