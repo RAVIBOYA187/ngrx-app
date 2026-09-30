@@ -20,12 +20,15 @@
 
 
 
-        <a routerLink="register" routerLinkActive="active">Register</a>
+
         @if (isLoggedIn())
         {
         <a (click)="logout()">logout</a>
         }
-        @else {<a routerLink="login2" routerLinkActive="active">Login2</a>
+        @else {
+        <a routerLink="register" routerLinkActive="active">Register</a>
+
+        <a routerLink="login2" routerLinkActive="active">Login2</a>
         }
 
 

@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import path from 'path';
-import { ProductDetails } from './products/product-details/product-details';
 import { authGuard } from './auth-guard';
 
 export const routes: Routes = [
@@ -20,17 +18,15 @@ export const routes: Routes = [
         //     }
         // ]
         canActivate: [authGuard]
-    }, {
-
+    },
+    {
         path: "products/:id",
         loadComponent: () => import("./products/product-details/product-details").then(pd => pd.ProductDetails)
     },
-
     {
         path: "counter",
         loadComponent: () => import("./counter/counter").then(c => c.Counter),
         canActivate: [authGuard]
-
     },
     {
         path: "login",

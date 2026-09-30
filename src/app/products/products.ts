@@ -76,7 +76,7 @@ export class Products implements OnInit {
     distinctUntilChanged()
   );
 
-  private sortSubject = new BehaviorSubject<string>("default")
+  private sortSubject = new BehaviorSubject<string>("low-high")
 
   sort$ = this.sortSubject.asObservable().pipe(distinctUntilChanged())
 

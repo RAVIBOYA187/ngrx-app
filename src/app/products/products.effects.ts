@@ -27,9 +27,11 @@ export class ProductsEffects {
 
                 // removing rating key from product object
                 map((products) => {
-                  console.log(products);
+                  console.log("get api : => ", products);
                   // console.log(products.data);
-                  let filteredProducts = products.
+                  // let fp = products.filter(p => p.id <= 51);
+                  // console.log("ids less than 50 :=> ", fp);
+                  let filteredProducts = products.slice(0, 48).
                     map(
                       ({ id, title, price, description, category, images }) =>
                       ({
@@ -42,9 +44,9 @@ export class ProductsEffects {
                       })
                     );
 
-                  filteredProducts = filteredProducts.filter((p) => p.id <= 51)
+                  // filteredProducts = filteredProducts.filter((p) => p.id <= 51)
 
-                  console.log(filteredProducts);
+                  console.log("filteredProducts :=> ", filteredProducts);
 
                   return ProductsActions.productsLoadingSuccess({ products: filteredProducts })
                 }
@@ -53,6 +55,7 @@ export class ProductsEffects {
 
                 catchError((error) => {
                   // console.log("errr");
+                  // fallback
                   return (
                     of(
                       ProductsActions.productsLoadingFailure({ errorMsg: error.message || "failed to load products " })
